@@ -185,7 +185,7 @@ gmd({
   category: "owner",
   filename: __filename
 },
-async (Aliconn, mek, m, { from, sender, isOwner, reply }) => {
+async (Aliconn, mek, m, { from, sender, isOwner, pushname, reply }) => {
   if (!isOwner) {
     return reply("*📛 тнιѕ ιѕ αɴ σωɴєʀ ᴄσммαɴ∂*");
   }
