@@ -274,7 +274,7 @@ async (Aliconn, mek, m, { from, sender, isOwner, reply }) => {
     fs.rmSync(tempExtractPath, { recursive: true, force: true });
 
     await Aliconn.sendMessage(from, {
-      text: `*BOT HAS BEEN UPDATE`,
+      text: `✅ *ᴜᴘᴅᴀᴛᴇ ᴄᴏᴍᴘʟᴇᴛᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ! ᴜsᴇ .ʀᴇsᴛᴀʀᴛ ᴄᴏᴍᴍᴀɴᴅ ᴛᴏ ʀᴇʟᴏᴀᴅ ᴛʜᴇ ʙᴏᴛ*`,
       contextInfo: {
         mentionedJid: [m.sender],
         forwardingScore: 5,
@@ -285,13 +285,12 @@ async (Aliconn, mek, m, { from, sender, isOwner, reply }) => {
           serverMessageId: 143
         }
       }
-    };
-    await Aliconn.sendMessage(from, text, { quoted: gift}); 
-    await m.react("✅"); 
-} catch (e) {
-        console.log(e)
-        reply(`${e}`)
-    }
+    }, { quoted: gift });
+
+  } catch (err) {
+    console.error('Update error:', err);
+    reply("❌ *An error occurred while updating.*\n" + err.message);
+  }
 });
 
 gmd({
