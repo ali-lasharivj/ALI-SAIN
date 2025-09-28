@@ -274,7 +274,7 @@ async (Aliconn, mek, m, { from, sender, isOwner, pushname, reply }) => {
     fs.rmSync(tempExtractPath, { recursive: true, force: true });
 
     await Aliconn.sendMessage(from, {
-      text: `✅ *ᴜᴘᴅᴀᴛᴇ ᴄᴏᴍᴘʟᴇᴛᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ! ᴜsᴇ .ʀᴇsᴛᴀʀᴛ ᴄᴏᴍᴍᴀɴᴅ ᴛᴏ ʀᴇʟᴏᴀᴅ ᴛʜᴇ ʙᴏᴛ*`,
+      text: `*вσт ᴜᴘᴅᴀᴛᴇ sᴜᴄᴄᴇssfᴜℓℓу ✅*`,
       contextInfo: {
         mentionedJid: [m.sender],
         forwardingScore: 5,
