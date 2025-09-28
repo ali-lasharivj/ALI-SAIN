@@ -8,7 +8,7 @@ const { exec } = require("child_process"),
      axios = require("axios"),
     AdmZip = require("adm-zip");
     git = require("git"),
-    { gmd, config, commands, runtime, sleep } = require("../lib"),
+    { gmd, config, commands, runtime, monospace, sleep } = require("../lib"),
     { BOT_PIC: botPic, 
       MODE: botMode, 
       VERSION: version,
