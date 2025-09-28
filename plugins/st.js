@@ -288,11 +288,10 @@ async (Aliconn, mek, m, { from, sender, isOwner, reply }) => {
     };
     await Aliconn.sendMessage(from, text, { quoted: gift}); 
     await m.react("✅"); 
-
-  } catch (err) {
-    console.error('Update error:', err);
-    reply("❌ *An error occurred while updating.*\n" + err.message);
-  }
+} catch (e) {
+        console.log(e)
+        reply(`${e}`)
+    }
 });
 
 gmd({
