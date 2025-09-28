@@ -31,14 +31,20 @@ gmd({
   alias: ['tgsticker', 'telegramsticker'],
   react: '🎴',
   desc: 'Download and convert Telegram sticker packs to WhatsApp stickers',
-  category: 'convert',
+  category: 'converter',
   filename: __filename
-}, async (Aliconn, mek, m, { from, reply, args, sender, pushname }) => {
+}, async (Aliconn, mek, m, { from, reply, args, sender, isAdmin }) => {
   try {
-  
+  /*  // Check if the user is a mod or admin
+    if (!isAdmin) {
+      reply('Only Mods can use this command.');
+      return;
+    }
+    */
+
     // Check if a Telegram sticker link is provided
     if (!args[0]) {
-      reply('ᴘʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴀ ᴛᴇʟᴇɢʀᴀᴍ sᴛɪᴄᴋᴇʀ ᴘᴀᴄᴋ ʟɪɴᴋ.\n\n ᴇxᴀᴍᴘʟᴇ `tgs` https://t.me/addstickers/telegram ');
+      reply('*ᴘʟᴇᴀsᴇ ᴘʀᴏᴠɪᴅᴇ ᴀ ᴛᴇʟᴇɢʀᴀᴍ sᴛɪᴄᴋᴇʀ ᴘᴀᴄᴋ ʟɪɴᴋ.*\n\n *ᴇxᴀᴍᴘʟᴇ* `.tgs` https://t.me/addstickers/telegramali ');
       return;
     }
 
@@ -57,19 +63,28 @@ gmd({
 
     let type = stickers.data.result.is_animated ? 'animated sticker' : 'not animated sticker';
 
-    let message = `*𝐓𝐄𝐋𝐄𝐆𝐑𝐀𝐌 𝐒𝐓𝐈𝐂𝐊𝐄𝐑*\n\n` +
-                  `*ᴘʀᴏᴅᴜᴄᴇʀ:* ${stickers.data.result.name}\n` +
-                  `*ᴛʏᴘᴇ:* ${type}\n` +
-                  `*ʟᴇɴɢᴛʜ:* ${stickers.data.result.stickers.length}\n\n` +
-                  `> ᴘʟᴇᴀsᴇ ᴡᴀɪᴛ sᴛɪᴄᴋᴇʀ...`;
+    let message = `*🧩ᴀʟɪ ᴛᴇʟᴇɢʀᴀᴍ sᴛɪᴄᴋᴇʀs🧩*\n\n` +
+                  `*Producer:* ${stickers.data.result.name}\n` +
+                  `*Type:* ${type}\n` +
+                  `*Length:* ${stickers.data.result.stickers.length}\n\n` +
+                  `> *ᴀʟɪ-ᴍᴅ sᴛɪᴄᴋᴇʀs sᴇɴᴅɪɴɢ*`;
 
    // await reply(message);
 await Aliconn.sendMessage(
             from,
             {
-                image: { url: botPic },
+                image: { url: `https://i.ibb.co/kgL73wq8/mrfrankofc.jpg` },
                 caption: message,
-                
+                contextInfo: {
+                    mentionedJid: [m.sender],
+                    forwardingScore: 999,
+                    isForwarded: true,
+                    forwardedNewsletterMessageInfo: {
+                        newsletterJid: '120363318387454868@newsletter',
+                        newsletterName: '『𝐀ɭι̇ι̇ 鉂笍 𝐓𝐄𝐂𝐇™』',
+                        serverMessageId: 143
+                    }
+                }
             },
             { quoted: mek }
         );
@@ -87,8 +102,8 @@ await Aliconn.sendMessage(
 
       // Create a WhatsApp sticker
       const sticker = new Sticker(buffer.data, {
-        pack: 'ALI-MD',
-        author: `${pushname}`,
+        pack: '𝐀ɭι̇ι̇ 𝐈ƞ̽ʂ̚ɪɖ𝛆̽',
+        author: '🐝',
         type: StickerTypes.FULL,
         categories: ['🤩', '🎉'],
         id: '12345',
@@ -109,10 +124,10 @@ await Aliconn.sendMessage(
       await new Promise(resolve => setTimeout(resolve, 1000));
     }
 
-    reply('sᴛɪᴄᴋᴇʀ ᴘᴀᴄᴋ ᴅᴏᴡɴʟᴏᴀᴅ ᴄᴏᴍᴘʟᴇᴛᴇ!');
+    reply('_*Sticker Pack Download Complete!*_');
 
   } catch (error) {
-    console.error('Error ᴘʀᴏᴄᴇssɪɴɢ Telegram sticker pack:', error);
+    console.error('Error processing Telegram sticker pack:', error);
     reply('An error occurred while processing the sticker pack. Please try again.');
   }
 });
