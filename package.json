@@ -44,7 +44,7 @@
     "fs": "^0.0.1-security",
     "fs-extra": "^11.1.0",
      "sharp":"0.32.6",
-    "@whiskeysockets/baileys":"github:mrfr8nk/baileys",
+    "@whiskeysockets/baileys": "github:Jeliostarr/DEV-Baileys",
     "gifted-dls": "*",
     "git": "0.1.5",
     "isolated-vm": "^5.0.3",
