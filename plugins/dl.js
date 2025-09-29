@@ -59,41 +59,35 @@ gmd({
     }
 });
 
-gmd({
-  pattern: "play",
-  alias: ["song", "music"],   
-  desc: "Download YouTube audio by title",
-  category: "download",
-  react: "🎵",
-  filename: __filename
+gmd({ 
+  pattern: "play", 
+  alias: ["song", "music"], 
+  desc: "Download YouTube audio by title", 
+  category: "download", 
+  react: "🎵", 
+  filename: __filename 
 }, async (Aliconn, mek, m, { from, args, q, reply }) => {
   try {
     if (!q) return reply("❌ Please give me a song name.");
-
+    
     // 1. Search video on YouTube
     let search = await yts(q);
     let video = search.videos[0];
     if (!video) return reply("❌ No results found.");
-
-    // 2. Call your API with video URL
-    let apiUrl = `https://jawad-tech.vercel.app/download/yt?url=${encodeURIComponent(video.url)}`;
-    let res = await axios.get(apiUrl);
-
-    if (!res.data.status) {
-      return reply("❌ Failed to fetch audio. Try again later.");
-    }
-
-    // 3. Send audio file first
-    await Aliconn.sendMessage(from, {
-      audio: { url: res.data.result },
-      mimetype: "audio/mpeg",
-      ptt: false,
-      contextInfo: { forwardingScore: 999, isForwarded: true }
+    
+    // 2. Send audio file directly from YouTube
+    await Aliconn.sendMessage(from, { 
+      audio: { url: video.url }, 
+      mimetype: "audio/mpeg", 
+      ptt: false, 
+      contextInfo: { 
+        forwardingScore: 999, 
+        isForwarded: true 
+      } 
     }, { quoted: mek });
-
-    // 4. Then reply with success message
-    await reply(`✅ *${video.title}* Downloaded Successfully!\n> *© ᴘσωєʀє∂ ву ALI-MD⎯꯭̽🚩°*`);
-
+    
+    // 3. Then reply with success message
+    await reply(`✅ *${video.title}* Downloaded Successfully!\n> * YouTube Audio*`);
   } catch (e) {
     console.error("play command error:", e);
     reply("❌ Error while downloading audio.");
