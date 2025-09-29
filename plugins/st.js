@@ -8,7 +8,7 @@ const { exec } = require("child_process"),
      axios = require("axios"),
     AdmZip = require("adm-zip");
     git = require("git"),
-    { gmd, config, commands, runtime, monospace, sleep } = require("../lib"),
+    { gmd, config, commands, runtime, sleep } = require("../lib"),
     { BOT_PIC: botPic, 
       MODE: botMode, 
       VERSION: version,
@@ -181,29 +181,17 @@ async(Aliconn, mek, m, { from, quoted, body, isCmd, umarmd, args, q, isGroup, se
 gmd({
   pattern: "update",
   desc: "Update bot from GitHub repo and restart",
-  react: "🔁",
+  react: "🎀",
   category: "owner",
   filename: __filename
 },
-async (Aliconn, mek, m, { from, sender, isOwner, pushname, reply }) => {
+async (Aliconn, mek, m, { from, sender, isOwner, reply }) => {
   if (!isOwner) {
     return reply("*📛 тнιѕ ιѕ αɴ σωɴєʀ ᴄσммαɴ∂*");
   }
 
   try {
-    let gift = {
-            key: {
-                fromMe: false,
-                participant: `0@s.whatsapp.net`,
-                remoteJid: "status@broadcast"
-            },
-            message: {
-                contactMessage: {
-                    displayName: `${monospace(pushname)}`,
-                    vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;a,;;;\nFN:'GIFTED'\nitem1.TEL;waid=${m.sender.split("@")[0]}:${m.sender.split("@")[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`
-                }
-            }
-        };
+    await Aliconn.sendMessage(from, { text: '🔄 *Downloading update from GitHub...*' }, { quoted: mek });
 
     const zipUrl = 'https://github.com/ALI-INXIDE/ALI-MD/archive/refs/heads/main.zip';
     const zipPath = path.join(process.cwd(), 'update.zip');
@@ -274,18 +262,20 @@ async (Aliconn, mek, m, { from, sender, isOwner, pushname, reply }) => {
     fs.rmSync(tempExtractPath, { recursive: true, force: true });
 
     await Aliconn.sendMessage(from, {
-      text: `*вσт ᴜᴘᴅᴀᴛᴇ sᴜᴄᴄᴇssfᴜℓℓу ✅*`,
+      text: `✅ *ᴜᴘᴅᴀᴛᴇ ᴄᴏᴍᴘʟᴇᴛᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ! ᴜsᴇ .ʀᴇsᴛᴀʀᴛ ᴄᴏᴍᴍᴀɴᴅ ᴛᴏ ʀᴇʟᴏᴀᴅ ᴛʜᴇ ʙᴏᴛ*`,
       contextInfo: {
-        mentionedJid: [m.sender],
-        forwardingScore: 5,
+        forwardingScore: 999,
         isForwarded: true,
-        forwardedNewsletterMessageInfo: {
-          newsletterJid: '120363318387454868@newsletter',
-          newsletterName: "-𝐀ɭīī 𝐌𝐃 𝐒𝐔𝐏𝐏𝐎𝐑𝐓°💀🇦🇱",
-          serverMessageId: 143
+        externalAdReply: {
+          title: "ALI-MD 🚩",
+          body: "ᴜᴘᴅᴀᴛᴇ ᴄᴏᴍᴘʟᴇᴛᴇ 🛬",
+          thumbnailUrl: "https://files.catbox.moe/6ku0eo.jpg",
+          mediaType: 1,
+          renderLargerThumbnail: true,
+          sourceUrl: "https://github.com"
         }
       }
-    }, { quoted: gift });
+    }, { quoted: mek });
 
   } catch (err) {
     console.error('Update error:', err);
@@ -381,8 +371,6 @@ async (Aliconn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, 
     }
 });
 
-
-
 gmd({
     pattern: "reboot",
     desc: "Reboot the Bot",
@@ -418,4 +406,4 @@ exec("pm2 stop all")
 console.log(e)
 reply(`${e}`)
 }
-})
+});
