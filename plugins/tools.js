@@ -27,6 +27,44 @@ function formatBytes(bytes) {
 }
 
 gmd({
+  on: "body"
+},    
+async (Aliconn, mek, m, { from, body, isOwner }) => {
+    const filePath = path.join(__dirname, '../data/autosticker.json');
+    const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    for (const text in data) {
+        if (body.toLowerCase() === text.toLowerCase()) {
+            
+            if (config.AUTO_STICKER === 'true') {
+                //if (isOwner) return;        
+                await Aliconn.sendMessage(from,{sticker: { url : data[text]},package: 'ALI-MD'},{ quoted: mek })   
+            
+            }
+        }
+    }                
+});
+
+//auto reply 
+
+gmd({
+  on: "body"
+},    
+async (Aliconn, mek, m, { from, body, isOwner }) => {
+    const filePath = path.join(__dirname, '../data/autoreply.json');
+    const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    for (const text in data) {
+        if (body.toLowerCase() === text.toLowerCase()) {
+            
+            if (config.AUTO_REPLY === 'true') {
+                //if (isOwner) return;        
+                await m.reply(data[text])
+            
+            }
+        }
+    }                
+});
+
+gmd({
   pattern: "tts",
   desc: "Convert text to speech with different voices.",
   category: "converter",
