@@ -38,6 +38,7 @@
     "axios": "^1.7.9",
     "adm-zip": "^0.5.16",
     "body-parser": "^1.20.3",
+    "@distube/ytdl-core": "latest",
     "buffer": "^6.0.3",
     "canvas": "^3.0.1",
     "cheerio": "^1.0.0-rc.12",
